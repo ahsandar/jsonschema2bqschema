@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: jsonschema2bqschema
+    entrypoint: /bin/sh
+    command: -c "npm install && echo && echo '*** HAPPY CODING! ***' && echo && while true; do sleep 1; done;" # this is a little hack :)
+    volumes:
+      - '.:/src/jsonschema2bqschema'

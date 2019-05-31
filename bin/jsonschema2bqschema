@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+const Fs = require('fs');
+const Program = require('commander');
+const Shell = require('shelljs');
+const info = require('./../package.json');
+
+
+
+Program
+    .version(info.version)
+    .description(info.description)
+    .option('-e OPTIONS', 'ignoreAdditional flag')
+    .option('<', 'Path to input file - default: STDIN')
+    .option('>', 'Path to output file - default: STDOUT')
+    .parse(process.argv);
+
+function jsbq(input, flags) {
+    Fs.writeFileSync('schema.json', input);
+    jsbq = 'jsbq -j schema.json ' + flags + ' | tail -2 | head -1 | awk -F\"\'\" \'{print $2}\' | jq -r \'.schema | .fields\'';
+    output = Shell.exec(jsbq);
+    if (output['stdout'] === '') {
+       error = (flags === '' ? 'JSON Schema has errors' : 'Your schema is not compliant to use --preventAdditionalObjectProperties');
+       console.log(error);
+    } 
+    
+}
+let input = '';
+if (process.stdin.isTTY) {
+    if (!Program.input) {
+        process.exit(1);
+    }
+
+    try {
+        input = Fs
+            .readFileSync(Program.input)
+            .toString();
+    } catch (e) {
+        console.error(`File "${Program.input}" cannot be opened.`);
+        process.exit(1);
+    }
+    jsbq(input, process.env.OPTIONS);
+} else {
+    process.stdin.on('data', (chunk) => {
+        input += chunk;
+    });
+
+    process.stdin.on('end', () => {
+        if (!input) {
+            Program.outputHelp();
+            process.exit(1);
+        }
+       jsbq(input, process.env.OPTIONS);
+    });
+
+    process.stdin.setEncoding('utf8');
+}
