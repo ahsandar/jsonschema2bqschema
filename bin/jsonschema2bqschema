@@ -20,7 +20,8 @@ function jsbq(input, flags) {
     jsbq = 'jsbq -j schema.json ' + flags + ' | tail -2 | head -1 | awk -F\"\'\" \'{print $2}\' | jq -r \'.schema | .fields\'';
     output = Shell.exec(jsbq);
     if (output['stdout'] === '') {
-       error = (flags === '' ? 'JSON Schema has errors' : 'Your schema is not compliant to use --preventAdditionalObjectProperties');
+        console.log(flags);
+       error = (flags === undefined ? 'JSON Schema has errors' : 'Your schema is not compliant to use --preventAdditionalObjectProperties');
        console.log(error);
     } 
     
