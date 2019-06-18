@@ -1,3 +1,5 @@
+`Github` repo is a mirror of `Gitlab` repo
+
 # Json schema to BQ Schema
 
 This is a container packaging [jsonschema-bigquery](https://github.com/thedumbterminal/jsonschema-bigquery) to generate BQ Schema from [JSON Schema](http://json-schema.org/). Purpose of this pacakge is to provide convenience of avoiding installing all tools and requirements to use jsonschema-bigquery to generate bigquery schema from JSON schema
