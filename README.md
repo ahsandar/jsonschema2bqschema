@@ -1,4 +1,4 @@
-`Github` repo is a mirror of `Gitlab` repo
+`Github` repo is a mirror of a `Gitlab` repo
 
 # Json schema to BQ Schema
 
