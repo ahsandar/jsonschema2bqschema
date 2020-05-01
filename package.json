@@ -6,6 +6,12 @@
   "dependencies": {
     "jsonschema-bigquery": "3.0.0",
     "commander": "~2.20.0",
-    "shelljs": "~0.8.3"
-  }
+    "shelljs": "~0.8.3",
+    "snyk": "^1.316.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
