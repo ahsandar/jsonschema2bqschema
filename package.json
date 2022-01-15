@@ -6,6 +6,6 @@
   "dependencies": {
     "jsonschema-bigquery": "3.0.0",
     "commander": "~2.20.0",
-    "shelljs": "~0.8.3"
+    "shelljs": "~0.8.5"
   }
 }
